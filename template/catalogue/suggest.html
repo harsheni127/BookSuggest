@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div style="display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:18px;">
+  <h2 class="page-title" style="margin:0">Random suggestion</h2>
+
+  {% if book %}
+    <div class="book-card" style="width:720px;">
+      <h2 style="margin-top:0;">{{ book.title }}</h2>
+      <p class="meta"><strong>{{ book.author }}</strong> • Rating: {{ book.rating|default:"-" }}</p>
+      <p style="margin-top:8px;">{{ book.description }}</p>
+
+      <div style="margin-top:14px;display:flex;gap:10px;">
+        <a class="btn-brown" href="{% url 'catalog:book_detail' book.id %}">Open</a>
+
+        <form method="get" action="{% url 'catalog:suggest_random' %}" style="display:inline;">
+          <button class="btn-outline" type="submit">Another suggestion</button>
+        </form>
+
+        <a class="btn-outline" href="{% url 'catalog:book_list' %}">Back to list</a>
+      </div>
+    </div>
+  {% else %}
+    <div class="detail-box" style="max-width:720px;text-align:center;">
+      <p>No books in catalogue yet.</p>
+      <a class="btn-brown" href="{% url 'catalog:book_list' %}">Back to list</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

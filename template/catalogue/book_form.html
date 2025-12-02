@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="form-card" style="max-width:720px;margin:8px auto;">
+  <h2>{% if create %}Suggest a Book{% else %}Edit Book{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <button class="btn-brown" type="submit">Save</button>
+      <a class="btn-outline" href="{% url 'catalog:book_list' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
